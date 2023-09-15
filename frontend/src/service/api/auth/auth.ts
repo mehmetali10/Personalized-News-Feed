@@ -2,14 +2,14 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { SignInRequest, SignInResponse, SignUpRequest, SignUpResponse } from '../../../models/auth/auth';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/auth', // Corrected baseURL
+    baseURL: 'http://localhost:3000/auth', 
     timeout: 5000,
   });
   
 
 export const makeSignIn = async (requestData: SignInRequest): Promise<SignInResponse> => {
   try {
-    const response: AxiosResponse = await apiClient.post('/login', requestData);
+    const response: AxiosResponse = await apiClient.post('/signin', requestData);
     return response.data;
   } catch (error) {
     handleAxiosError(error as AxiosError); 
@@ -19,7 +19,7 @@ export const makeSignIn = async (requestData: SignInRequest): Promise<SignInResp
 
 export const makeSignUp = async (requestData: SignUpRequest): Promise<SignUpResponse> => {
   try {
-    const response: AxiosResponse = await apiClient.post('/register', requestData);
+    const response: AxiosResponse = await apiClient.post('/signup', requestData);
     return response.data;
   } catch (error) {
     handleAxiosError(error as AxiosError); 
