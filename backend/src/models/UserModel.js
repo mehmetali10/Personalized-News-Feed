@@ -7,15 +7,22 @@ const userSchema = new Schema({
         required: true,
         minlength: 2
     },
-    lastName:{
+    lastName: {
         type: String,
         required: true,
         minlength: 2   
     },
     email: {
-        type: email,
+        type: String, // Use String data type for email
         required: true,
-        uniqe: true
+        unique: true, // Correct the spelling of 'unique'
+        validate: {
+            validator: function(v) {
+                // Define a simple email validation regex
+                return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v);
+            },
+            message: 'Invalid email format'
+        }
     },
     password: {
         type: String,
@@ -27,6 +34,5 @@ const userSchema = new Schema({
         default: Date.now
     }
 });
-
 
 module.exports = mongoose.model("User", userSchema);
