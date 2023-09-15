@@ -23,7 +23,7 @@ const Navbar = () => {
       <Toolbar>
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Your Logo
+          NewsApp
         </Typography>
         <div>
           <Button
@@ -31,7 +31,7 @@ const Navbar = () => {
             startIcon={<AccountCircleIcon />}
             onClick={handleMenuClick}
           >
-            Your Username
+            {localStorage.getItem("firstName")}
           </Button>
           <Menu
             anchorEl={anchorEl}
