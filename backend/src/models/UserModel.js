@@ -13,12 +13,11 @@ const userSchema = new Schema({
         minlength: 2   
     },
     email: {
-        type: String, // Use String data type for email
+        type: String, 
         required: true,
-        unique: true, // Correct the spelling of 'unique'
+        unique: true, 
         validate: {
             validator: function(v) {
-                // Define a simple email validation regex
                 return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(v);
             },
             message: 'Invalid email format'
