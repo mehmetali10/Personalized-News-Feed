@@ -39,9 +39,7 @@ export default function SignUp() {
   
     try {
       const response = await makeSignUp(signUpData);
-  
       console.log('Registration successful:', response);
-      // window.location.href = "SignIn"
       navigate('/SignIn');
     } catch (error) {
       console.error('Registration failed:', error);

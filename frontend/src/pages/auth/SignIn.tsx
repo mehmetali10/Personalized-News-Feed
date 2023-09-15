@@ -16,6 +16,9 @@ import Copyright from '../../components/Copyright';
 import { SignInRequest, TokenPayload } from '../../models/auth/auth';
 import { makeSignIn } from '../../service/api/auth/auth';
 import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const defaultTheme = createTheme();
 
@@ -24,6 +27,7 @@ export default function SignIn() {
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -36,24 +40,19 @@ export default function SignIn() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
     try {
       const response = await makeSignIn(signInData);
       if (response && response.token) {
         localStorage.setItem('token', response.token);
-        console.log('Token added to localStorage:', response.token);
-  
-        // Decode the token and assert its type
+
         const decodedToken = jwtDecode(response.token) as TokenPayload;
   
-        // Now, you can access individual fields in the payload
         const { firstName, lastName, email } = decodedToken;
-        console.log('Decoded Token Fields:', { firstName, lastName, email });
   
-        // Store individual fields in localStorage
         localStorage.setItem('firstName', firstName);
         localStorage.setItem('lastName', lastName);
         localStorage.setItem('email', email);
+        navigate('/', { replace: true });
       } else {
         alert('Login failed. Please check your credentials.');
       }
