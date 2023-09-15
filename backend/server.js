@@ -1,6 +1,7 @@
 const express = require("express");
 const server = express();
 const AuthRouter = require('./src/routes/authRoutes');
+const NewsRouter = require('./src/routes/newsRoutes');
 const cors = require("cors");
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
@@ -48,5 +49,6 @@ server.use((req, res, next) => {
 });
 
 server.use(AuthRouter);
+server.use(NewsRouter)
 
 module.exports = server;
