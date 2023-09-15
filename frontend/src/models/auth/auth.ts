@@ -18,3 +18,10 @@ export interface SignInResponse {
 export interface SignUpResponse {
 
 }
+
+export interface TokenPayload {
+    firstName: string;
+    lastName: string;
+    email: string;
+  }
+  
