@@ -1,19 +1,13 @@
-// router.js
-// import { createBrowserRouter } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import SignIn from "../pages/auth/SignIn";
+import SignUp from "../pages/auth/SignUp";
 
-const routes = [
-  {
-    // it renders this element
-    element: <></>,
-    // when the URL matches this segment
-    path: "teams/:teamId",
-  },
-  {
-    element: <></>,
-    path: "ali",
-  },
-];
-
-// const router = createBrowserRouter(routes);
+const routes = (
+  <Routes>
+    <Route path="/SignIn" element={<SignIn />} />
+    <Route path="/SignUp" element={<SignUp />} />
+    <Route path="/" element={<Navigate to="/SignIn" />} />
+  </Routes>
+);
 
 export default routes;
