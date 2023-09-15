@@ -47,6 +47,8 @@ exports.login = async (req, res) => {
     try {
         // Find the user with the provided email
         const foundUser = await User.findOne({ email: req.body.email });
+        console.log(foundUser)
+        console.log(req.body)
 
         if (!foundUser) {
             // If no user is found with the email, return a 400 Bad Request response

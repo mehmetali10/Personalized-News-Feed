@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,19 +13,41 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from '../../components/Copyright';
+import { SignInRequest } from '../../models/auth/auth';
+import { makeSignIn } from '../../service/api/auth/auth';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [signInData, setSignInData] = useState<SignInRequest>({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setSignInData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    try {
+      const response = await makeSignIn(signInData);
+      if (response && response.token) {
+        localStorage.setItem('token', response.token);
+        console.log('Token added to localStorage:', response.token);
+      } else {
+        alert('Login failed. Please check your credentials.');
+      }
+    } catch (error) {
+      console.error('An error occurred during login:', error);
+    }
+  };
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -54,6 +76,8 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={signInData.email}
+              onChange={handleChange}
             />
             <TextField
               margin="normal"
@@ -64,6 +88,8 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={signInData.password}
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
