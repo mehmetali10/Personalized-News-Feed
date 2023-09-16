@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import NewsCard from '../../components/NewsCard'; // NewsCard bileşenini içe aktarın
+import NewsCard from '../../components/NewsCard';
 import { getNews } from '../../service/api/news/news';
 import { NewsModel } from '../../models/news/news';
+import { Grid } from '@mui/material';
 
 export default function IndexPage() {
-  const [news, setNews] = useState<NewsModel[]>([]); // Haberleri saklamak için bir state kullanın
+  const [news, setNews] = useState<NewsModel[]>([]);
 
   useEffect(() => {
     getNews()
@@ -16,9 +17,13 @@ export default function IndexPage() {
   return (
     <>
       <Navbar />
-      {news.map((article) => (
-        <NewsCard key={article.title} article={article} />
-      ))}
+      <Grid container spacing={0} paddingLeft={20} paddingRight={20}>
+        {news.map((article) => (
+          <Grid item xs={6} key={article.title}>
+            <NewsCard article={article} />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 }

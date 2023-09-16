@@ -5,7 +5,7 @@ exports.GetNews = async (req, res) => {
   try {
     const response = await newsapi.v2.everything({
       q: 'news', // Use a generic query to retrieve a wide range of news articles
-      pageSize: 10, // Limit the number of articles to 50
+      pageSize: 30, // Limit the number of articles to 50
     });
 
     if (response.status === 'ok') {

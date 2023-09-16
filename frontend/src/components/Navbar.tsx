@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -18,8 +19,10 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  const trigger = useScrollTrigger(); // Scroll olaylarına tepki vermek için kullanılır
+
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" elevation={trigger ? 4 : 0}>
       <Toolbar>
 
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
