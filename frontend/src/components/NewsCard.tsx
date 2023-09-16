@@ -15,11 +15,14 @@ const newsCardStyles: Record<string, React.CSSProperties> = {
     backgroundColor: '#ffffff',
     borderRadius: '20px',
     minHeight: '350px',
-    width: '80%',
+    width: '95%',
     margin: '0 auto',
     marginTop: '55px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+    border: '1px solid #000', // Sınırı daha belirgin yapmak için buradaki değeri ekleyin
   },
+  
+  
   content: {
     flex: '1 0 auto',
     padding: '16px',

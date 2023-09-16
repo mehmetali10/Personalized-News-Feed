@@ -17,9 +17,9 @@ export default function IndexPage() {
   return (
     <>
       <Navbar />
-      <Grid container spacing={0} paddingLeft={20} paddingRight={20}>
+      <Grid container padding={9} spacing={4}>
         {news.map((article) => (
-          <Grid item xs={6} key={article.title}>
+          <Grid item xs={4} key={article.title}>
             <NewsCard article={article} />
           </Grid>
         ))}
