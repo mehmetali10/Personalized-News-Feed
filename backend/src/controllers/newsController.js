@@ -3,7 +3,7 @@ const newsapi = new NewsAPI('929c930106b74a76b7ffa024fdce6a2d');
 
 exports.GetNews = async (req, res) => {
   try {
-    const { q, source, author } = req.query;
+    const { q, sources, author } = req.query;
     let { from, to } = req.query;
     
     const defaultQuery = 'news';
@@ -20,10 +20,10 @@ exports.GetNews = async (req, res) => {
 
     const params = {
       q: q || defaultQuery,
-      pageSize: 20,
+      pageSize: 80,
       from: from, 
       to: to,
-      sources: source,
+      sources: sources,
       author: author,
     };
 
