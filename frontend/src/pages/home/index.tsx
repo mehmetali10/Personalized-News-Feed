@@ -112,37 +112,45 @@ export default function IndexPage() {
   const toggleForm = () => {
     setFormExpanded(!formExpanded);
   };
+  const divStyle = {
+    backgroundColor: '#F9F9F9', // Arka plan rengi
+    backgroundImage: 'url("https://www.transparenttextures.com/patterns/batthern.png")', // Arka plan görüntüsü
+    /* Diğer CSS özellikleri buraya ekleyebilirsiniz. */
+  };
 
   return (
     <>
+    <div style={divStyle}>
       <Navbar />
-      <Container maxWidth="md">
-        <Box mt={4} mb={4}>
-          <Paper elevation={3}>
-            <Box p={3}>
-              <Header toggleForm={toggleForm} formExpanded={formExpanded} />
-              {formExpanded && <SearchForm
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                fromDate={fromDate}
-                setFromDate={setFromDate}
-                toDate={toDate}
-                setToDate={setToDate}
-                selectedSources={selectedSources}
-                setSelectedSources={setSelectedSources}
-                selectedAuthor={selectedAuthor}
-                setSelectedAuthor={setSelectedAuthor}
-                handleSearch={handleSearch}
-                clearFilters={clearFilters}
-                categoryOptions={categoryOptions}
-              />}
-            </Box>
-          </Paper>
-        </Box>
-        <LoadingSection loading={loading} />
-        <ErrorSection error={error} />
-        <NewsSection news={news} />
-      </Container>
+        <Container maxWidth="md">
+          <Box mt={4} mb={4}>
+            <Paper elevation={3}>
+              <Box p={3}>
+                <Header toggleForm={toggleForm} formExpanded={formExpanded} />
+                {formExpanded && <SearchForm
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  fromDate={fromDate}
+                  setFromDate={setFromDate}
+                  toDate={toDate}
+                  setToDate={setToDate}
+                  selectedSources={selectedSources}
+                  setSelectedSources={setSelectedSources}
+                  selectedAuthor={selectedAuthor}
+                  setSelectedAuthor={setSelectedAuthor}
+                  handleSearch={handleSearch}
+                  clearFilters={clearFilters}
+                  categoryOptions={categoryOptions}
+                />}
+              </Box>
+            </Paper>
+          </Box>
+          <LoadingSection loading={loading} />
+          <ErrorSection error={error} />
+          <NewsSection news={news} />
+        </Container>
+      </div>
+
     </>
   );
 }
