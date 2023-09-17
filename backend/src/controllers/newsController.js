@@ -5,7 +5,7 @@ exports.GetNews = async (req, res) => {
   try {
     const { q, sources, author } = req.query;
     let { from, to } = req.query;
-    
+
     const defaultQuery = 'news';
 
     if (from) {
@@ -15,20 +15,15 @@ exports.GetNews = async (req, res) => {
       to = new Date(to).toISOString();
     }
 
-    console.log(q);
-    console.log(from);
-
     const params = {
       q: q || defaultQuery,
       pageSize: 80,
-      from: from, 
+      from: from,
       to: to,
       sources: sources,
       author: author,
     };
 
-    console.log(params);
-    
     const response = await newsapi.v2.everything(params);
 
     if (response.status === 'ok') {
