@@ -3,14 +3,36 @@ const newsapi = new NewsAPI('929c930106b74a76b7ffa024fdce6a2d');
 
 exports.GetNews = async (req, res) => {
   try {
-    const response = await newsapi.v2.everything({
-      q: 'news', // Use a generic query to retrieve a wide range of news articles
-      pageSize: 30, // Limit the number of articles to 50
-    });
+    const { q, source, author } = req.query;
+    let { from, to } = req.query;
+    
+    const defaultQuery = 'news';
+
+    if (from) {
+      from = new Date(from).toISOString();
+    }
+    if (to) {
+      to = new Date(to).toISOString();
+    }
+
+    console.log(q);
+    console.log(from);
+
+    const params = {
+      q: q || defaultQuery,
+      pageSize: 20,
+      from: from, 
+      to: to,
+      sources: source,
+      author: author,
+    };
+
+    console.log(params);
+    
+    const response = await newsapi.v2.everything(params);
 
     if (response.status === 'ok') {
       const data = response.articles;
-      console.log('News Data:', data);
       res.status(200).json(data);
     } else {
       console.error('Failed to fetch news data:', response.message);
