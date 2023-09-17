@@ -19,7 +19,19 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const trigger = useScrollTrigger(); // Scroll olaylarına tepki vermek için kullanılır
+  const getFirstName = () => {
+    const firstName =JSON.parse(localStorage.getItem('userInfo')!).firstName;
+    return firstName ? firstName : ''; 
+  };
+  
+
+  const handleLogout = () => {
+    localStorage.removeItem('userInfo');
+    window.location.href = '/SignIn';
+  };
+  
+
+  const trigger = useScrollTrigger(); 
 
   return (
     <AppBar position="sticky" elevation={trigger ? 4 : 0}>
@@ -34,16 +46,14 @@ const Navbar = () => {
             startIcon={<AccountCircleIcon />}
             onClick={handleMenuClick}
           >
-            {localStorage.getItem("firstName")}
+            {getFirstName()}
           </Button>
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       </Toolbar>

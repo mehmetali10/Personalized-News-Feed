@@ -4,8 +4,9 @@ import SignUp from "../pages/auth/SignUp";
 import IndexPage from '../pages/home';
 
 const hasValidToken = () => {
-  const token = localStorage.getItem('token');
-  return !!token; 
+  const userInfoJSON = localStorage.getItem('userInfo');
+  const userInfo = JSON.parse(userInfoJSON!);
+  return !!userInfo && !!userInfo.token; 
 };
 
 const routes = (

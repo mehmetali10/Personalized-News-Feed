@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { SignInRequest, TokenPayload } from '../../models/auth/auth';
 import { makeSignIn } from '../../service/api/auth/auth';
 import jwtDecode from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,7 +25,6 @@ export default function SignIn() {
     email: '',
     password: '',
   });
-  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -42,16 +40,21 @@ export default function SignIn() {
     try {
       const response = await makeSignIn(signInData);
       if (response && response.token) {
-        localStorage.setItem('token', response.token);
 
         const decodedToken = jwtDecode(response.token) as TokenPayload;
-  
+
         const { firstName, lastName, email } = decodedToken;
-  
-        localStorage.setItem('firstName', firstName);
-        localStorage.setItem('lastName', lastName);
-        localStorage.setItem('email', email);
-        navigate('/', { replace: true });
+        const userInfo = {
+          token: response.token,
+          firstName: firstName,
+          lastName: lastName,
+          email: email
+        };
+        const userInfoJSON = JSON.stringify(userInfo);
+        localStorage.setItem('userInfo', userInfoJSON);
+
+        window.location.href = '/'
+
       } else {
         alert('Login failed. Please check your credentials.');
       }
@@ -59,7 +62,7 @@ export default function SignIn() {
       console.error('An error occurred during login:', error);
     }
   };
-  
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

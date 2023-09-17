@@ -38,3 +38,12 @@ exports.GetNews = async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+
+
+function getnewsapi() {
+
+}
+
+function source2() {
+  
+}
