@@ -12,7 +12,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Copyright from '../../components/Copyright';
 import { SignInRequest, TokenPayload } from '../../models/auth/auth';
 import { makeSignIn } from '../../service/api/auth/auth';
 import jwtDecode from 'jwt-decode';
@@ -130,7 +129,6 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

@@ -1,4 +1,5 @@
 import React, { ReactNode, createContext, useCallback, useContext, useState } from 'react';
+import Copyright from '../components/Copyright';
 
 interface LayoutContextProps {
   dialogState: {
@@ -28,6 +29,7 @@ export function LayoutProvider({ children }: { children: ReactNode }) {
   return (
     <LayoutContext.Provider value={{ dialogState, handlerDialogState }}>
       {children}
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </LayoutContext.Provider>
   );
 }
