@@ -39,6 +39,11 @@ export const getNews = async (filters: {
 
 const handleAxiosError = (error: AxiosError) => {
   if (error.response) {
+    if (error.response.status === 401) {
+        localStorage.removeItem('userInfo')
+        window.location.href = '/SignIn'
+        return 
+    }
     console.error('HTTP Error Code:', error.response.status);
     console.error('Error Message:', error.response.data);
   } else if (error.request) {

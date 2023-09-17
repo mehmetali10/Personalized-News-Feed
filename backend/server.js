@@ -1,7 +1,5 @@
 const express = require("express");
 const server = express();
-const AuthRouter = require('./src/routes/authRoutes');
-const NewsRouter = require('./src/routes/newsRoutes');
 const cors = require("cors");
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
@@ -9,28 +7,36 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 
+// Enable Cross-Origin Resource Sharing (CORS)
 server.use(cors());
 
+// Enhance your server security with Helmet
 server.use(helmet());
 
+// Implement Rate Limiting for API requests
 const limiter = rateLimit({
   max: 500,
-  windowMs: 24 * 60 * 60 * 1000,
+  windowMs: 24 * 60 * 60 * 1000, // 24 hours
   standardHeaders: true,
-  message: 'Too Many Request From this IP, please try again in an hour',
+  message: 'Too many requests from this IP. Please try again in an hour.',
 });
 
 server.use('/api', limiter);
 
-//Data Sanitization against NOSQL query Injection
+// Data Sanitization against NoSQL Injection
 server.use(mongoSanitize());
 
-//Data Sanitization against XSS
+// Data Sanitization against Cross-Site Scripting (XSS)
 server.use(xss());
+
+// Parse JSON and URL-encoded data
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
+
+// Parse cookies
 server.use(cookieParser());
 
+// Set up CORS headers for all routes
 server.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -44,11 +50,14 @@ server.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }
-  console.log("istek buraya düştü cors")
   next();
 });
 
+// Include your authentication and news routers
+const AuthRouter = require('./src/routes/authRoutes');
+const NewsRouter = require('./src/routes/newsRoutes');
+
 server.use(AuthRouter);
-server.use(NewsRouter)
+server.use(NewsRouter);
 
 module.exports = server;

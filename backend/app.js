@@ -9,7 +9,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((con) => {
+  .then(() => {
     console.log('DB Connection Successful');
   })
   .catch((error) => {

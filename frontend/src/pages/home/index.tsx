@@ -63,6 +63,7 @@ export default function IndexPage() {
   const [searchQuery, setSearchQuery] = useState<string | undefined>('');
   const [error, setError] = useState<string | undefined>('');
   const [formExpanded, setFormExpanded] = useState<boolean>(true);
+  const [reload, setReaload] = useState(0)
 
   const categoryOptions: string[] = [
     'bbc-news',
@@ -94,7 +95,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     fetchNews();
-  }, []);
+  }, [reload]);
 
   const handleSearch = () => {
     fetchNews();
@@ -107,15 +108,15 @@ export default function IndexPage() {
     setSelectedAuthor('');
     setSearchQuery('');
     fetchNews();
+    setReaload(reload+1);
   };
 
   const toggleForm = () => {
     setFormExpanded(!formExpanded);
   };
   const divStyle = {
-    backgroundColor: '#F9F9F9', // Arka plan rengi
-    backgroundImage: 'url("https://www.transparenttextures.com/patterns/batthern.png")', // Arka plan görüntüsü
-    /* Diğer CSS özellikleri buraya ekleyebilirsiniz. */
+    backgroundColor: '#F9F9F9', 
+    backgroundImage: 'url("https://www.transparenttextures.com/patterns/batthern.png")',
   };
 
   return (

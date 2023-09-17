@@ -71,7 +71,7 @@ exports.login = async (req, res) => {
         };
 
         // Generate a JWT token with the payload
-        const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
+        const token = jwt.sign(payload, secretKey, { expiresIn: "24h" });
 
         // Log the successful login
         console.log(`User logged in successfully: ${foundUser.email}`);
