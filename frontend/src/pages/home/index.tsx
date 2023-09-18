@@ -123,7 +123,7 @@ export default function IndexPage() {
     <>
     <div style={divStyle}>
       <Navbar />
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <Box mt={4} mb={4}>
             <Paper elevation={3}>
               <Box p={3}>
@@ -303,7 +303,7 @@ function NewsSection({ news }: NewsSectionProps) {
   return (
     <Grid container spacing={3}>
       {news.map((article) => (
-        <Grid item xs={12} sm={6} md={6} key={article.title}>
+        <Grid item xs={12} sm={6} md={4} key={article.title}>
           <NewsCard article={article} />
         </Grid>
       ))}

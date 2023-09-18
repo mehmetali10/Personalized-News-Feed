@@ -31,7 +31,7 @@ export default function Copyright(props: CopyrightProps) {
     <Typography style={copyrightStyle} {...props}>
       {'Copyright © '}
       <Link style={linkStyle} href="#">
-        NewsApp
+        NewsApp - <small>Mehmet Ali Mergen</small> 
       </Link>{" "}
       {new Date().getFullYear()}
     </Typography>
