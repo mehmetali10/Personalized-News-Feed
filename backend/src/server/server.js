@@ -54,8 +54,8 @@ server.use((req, res, next) => {
 });
 
 // Include your authentication and news routers
-const AuthRouter = require('./src/routes/authRoutes');
-const NewsRouter = require('./src/routes/newsRoutes');
+const AuthRouter = require('../routes/authRoutes');
+const NewsRouter = require('../routes/newsRoutes');
 
 server.use(AuthRouter);
 server.use(NewsRouter);

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { createServer } = require('http');
-const server = require('./server');
+const server = require('./src/server/server');
 const port = 3000;
 
 // Connect to the MongoDB database
