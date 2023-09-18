@@ -1,6 +1,7 @@
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('929c930106b74a76b7ffa024fdce6a2d');
-const apiKey = '32def6c2-ebd5-4f4a-90c4-cfa10e968439';
+const newsApiKey = process.env.NEWSAPIKEY
+const newsapi = new NewsAPI(newsApiKey);
+const apiKey = process.env.THE_GUARDIAN_API_KEY;
 
 exports.GetNews = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ exports.GetNews = async (req, res) => {
 
     // Fetch data from The Guardian API
     const guradianArticles = await getNewsFromTheGuardian(params);
-    console.log(guradianArticles.length)
+
     // Combine data from both APIs
     const combinedData = [...newsApiResponse.articles, ...guradianArticles];
 

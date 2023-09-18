@@ -1,11 +1,13 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const { createServer } = require('http');
 const server = require('./src/server/server');
-const port = 3000;
+const port = process.env.PORT
+const dbUrl = process.env.MONGODBCONNECT
 
 // Connect to the MongoDB database
 mongoose
-  .connect('mongodb://127.0.0.1/newsDB', {
+  .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
