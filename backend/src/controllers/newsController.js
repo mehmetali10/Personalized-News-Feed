@@ -8,8 +8,6 @@ exports.GetNews = async (req, res) => {
     const { q, sources, author } = req.query;
     let { from, to } = req.query;
 
-    const defaultQuery = 'news';
-
     if (from) {
       from = new Date(from).toISOString();
     }
@@ -18,7 +16,7 @@ exports.GetNews = async (req, res) => {
     }
 
     const params = {
-      q: q || defaultQuery,
+      q: q || 'news',
       pageSize: 40,
       from: from,
       to: to,
@@ -26,14 +24,11 @@ exports.GetNews = async (req, res) => {
       author: author,
     };
 
-    // Fetch data from the first API
-    const newsApiResponse = await newsapi.v2.everything(params);
-
-    // Fetch data from The Guardian API
+    const newsApiArticles = await getNewsFromNewsApi(params);
     const guradianArticles = await getNewsFromTheGuardian(params);
 
     // Combine data from both APIs
-    const combinedData = [...newsApiResponse.articles, ...guradianArticles];
+    const combinedData = [...newsApiArticles, ...guradianArticles];
 
     res.status(200).json(combinedData);
   } catch (error) {
@@ -41,6 +36,18 @@ exports.GetNews = async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+
+async function getNewsFromNewsApi(params) {
+  try {
+
+    const newsApiResponse = await newsapi.v2.everything(params);
+    return newsApiResponse.articles
+    
+  } catch (error) {
+    console.error("NewsAPI request error:", error);
+    return [];
+  }
+}
 
 // Function to fetch news from The Guardian API
 async function getNewsFromTheGuardian(params) {
@@ -55,7 +62,6 @@ async function getNewsFromTheGuardian(params) {
     const apiUrl = `https://content.guardianapis.com/search?q=${params.q}${fromDateParam}&api-key=${apiKey}`;
     const response = await fetch(apiUrl);
     const data = await response.json();
-
 
     if (data.response && data.response.status === 'ok') {
       // Map results to NewsModel
